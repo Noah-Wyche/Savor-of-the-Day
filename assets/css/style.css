@@ -1,0 +1,21 @@
+body {
+    margin: 0px;
+}
+
+nav {
+    background-color: #228B22;
+}
+
+ul {
+    padding: 8px;
+}
+
+li {
+    display: inline;
+}
+
+a {
+    padding: 8px;
+    background-color: #228B22;
+    color: white;
+}
