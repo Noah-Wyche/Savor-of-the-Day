@@ -1,13 +1,20 @@
+:root {
+    --forestGreen: #228B22;
+    --teaGreen: #CAE7B9;
+}
+
 body {
     margin: 0px;
 }
 
 nav {
-    background-color: #228B22;
+    background-image: linear-gradient(to left, var(--teaGreen), var(--forestGreen));
+    margin: 0px;
 }
 
 ul {
-    padding: 8px;
+    padding: 20px;
+    margin: 0px;
 }
 
 li {
@@ -16,6 +23,14 @@ li {
 
 a {
     padding: 8px;
-    background-color: #228B22;
     color: white;
+    text-decoration: none;
+}
+
+.box {
+    background-color: var(--teaGreen);
+}
+
+.large-box {
+    background-color: var(--teaGreen);
 }
