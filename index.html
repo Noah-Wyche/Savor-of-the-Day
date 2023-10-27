@@ -27,16 +27,21 @@
 
       <div class="box">
         <h2>Modify Your Meals</h2>
-        <p>Select a Meal:</p>
-        <select id="meal-type">
-          <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="dinner">Dinner</option>
-        </select>
+        <p>I Want to be Shown:</p>
+        <label>
+          <input type="checkbox" name="meal" value="breakfast" checked> Breakfast
+        </label>
+        <label>
+          <input type="checkbox" name="meal" value="lunch" checked> Lunch
+        </label>
+        <label>
+          <input type="checkbox" name="meal" value="dinner" checked> Dinner
+        </label>
         <p>Enter a Specific Ingredient:</p>
         <input type="text" id="ingredient" placeholder="E.g., Chicken, Pasta, etc.">
         <button id="search-button">Search</button>
       </div>
+      
 
       <div class="large-box">
         <h2>Large Box</h2>
