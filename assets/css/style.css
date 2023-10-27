@@ -1,36 +1,31 @@
 :root {
     --forestGreen: #228B22;
     --teaGreen: #CAE7B9;
+    --castletonGreen: #00563B;
 }
 
-body {
-    margin: 0px;
+.main {
+    margin: 8px;
 }
 
 nav {
-    background-image: linear-gradient(to left, var(--teaGreen), var(--forestGreen));
-    margin: 0px;
-}
-
-ul {
-    padding: 20px;
-    margin: 0px;
-}
-
-li {
-    display: inline;
+    background-image: linear-gradient(to right, var(--teaGreen), var(--forestGreen));
+    padding: 8px;
 }
 
 a {
-    padding: 8px;
     color: white;
-    text-decoration: none;
+}
+
+a:hover {
+    background-color: var(--castletonGreen);
+    color: white;
 }
 
 .box {
     background-color: var(--teaGreen);
-}
-
-.large-box {
-    background-color: var(--teaGreen);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 10px 10px lightgray;
 }
