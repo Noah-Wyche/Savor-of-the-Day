@@ -17,6 +17,11 @@ a {
     color: white;
 }
 
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+  }
+
 a:hover {
     background-color: var(--castletonGreen);
     color: white;
