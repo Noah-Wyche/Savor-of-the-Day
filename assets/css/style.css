@@ -4,6 +4,10 @@
     --castletonGreen: #00563B;
 }
 
+body {
+    background-color: rgb(201, 246, 253);
+}
+
 .main {
     margin: 8px;
 }
