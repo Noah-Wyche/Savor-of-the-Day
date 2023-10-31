@@ -1,11 +1,5 @@
 // We are gonna need a lot of stuff in here
 
-// Nav bar functions
-// Function to take the user back to the homepage
-// Function to take the user to the previous recipes page
-// Function to take the user to the popular recipes page
-// Funtion to take the user to a Browse page to see a list of recipes
-
 // Image box
 // Function to choose a random recipe image and name when the page loads or is refreshes
 // The name should be displayed along with the appropriate image
