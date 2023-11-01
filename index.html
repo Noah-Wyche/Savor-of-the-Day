@@ -56,49 +56,53 @@
 
     <div class="main">
       <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
-        <div class="box cell medium-4">
+        <div id="id" class="box cell medium-4">
           <h2>Featured Recipes</h2>
           <p>A random recipe will appear here</p>
         </div>
       
 
         <div class="box cell medium-8">
-          <h2>Modify Your Meals</h2>
-          <p>I Want to be Shown:</p>
-            <form id="userForm">
-              <label>
-                <input type="checkbox" name="meal" value="breakfast" checked> Breakfast
-              </label>
-              <label>
-                <input type="checkbox" name="meal" value="lunch" checked> Lunch
-              </label>
-              <label>
-                <input type="checkbox" name="meal" value="dinner" checked> Dinner
-              </label>
-              <p>Enter a Specific Ingredient:</p>
-              <input type="text" id="ingredient" placeholder="E.g., Chicken, Pasta, etc.">
-              <input type="submit" id="search-button" value="Search"></button>
-         
+          <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
+            <div class="cell medium-8">
+              <h2>Modify Your Meals</h2>
+              <p>I Want to be Shown:</p>
+              <form id="userForm">
+                <input type="radio" id="breakfast" name="meal" value="breakfast">
+                <label for="breakfast">Breakfast</label><br>
+                <input type="radio" id="lunch" name="meal" value="lunch">
+                <label for="lunch">Lunch</label><br>
+                <input type="radio" id="dinner" name="meal" value="dinner">
+                <label for="dinner">Dinner</label>
+                <p>Enter ingredients separated by commas:</p>
+                <input type="text" id="ingredient" placeholder="E.g. Chicken,Pasta,etc">
+                <input type="submit" id="search-button" value="Search"></button>
+              </div>
+
+              <div id="intolerances" class="cell medium-4">
+                <h3>Intolerances:</h3>
+                
+                <input type="checkbox" id="gluten" name="intolerances">
+                <label for="gluten">Gluten</label>
+                <input type="checkbox" id="grain" name="intolerances">
+                <label for="grain">Grain</label>
+                <input type="checkbox" id="dairy" name="intolerances">
+                <label for="dairy">Dairy</label>
+                <input type="checkbox" id="peanut" name="intolerances">
+                <label for="peanut">Peanut</label>
+                <input type="checkbox" id="soy" name="intolerances">
+                <label for="soy">Soy</label>
+                <input type="checkbox" id="egg" name="intolerances">
+                <label for="egg">Egg</label>
+                <input type="checkbox" id="seafood" name="intolerances">
+                <label for="seafood">Seafood</label>
+              </div>
+          </div>
         </div>
       </div>
 
       <div>
-        <h3>Dietary Restrictions:</h3>
-       
-        <input type="checkbox" id="gluten-free" name="dietary-restriction">
-        <label for="gluten-free">Gluten-Free</label>
-        <input type="checkbox" id="vegan" name="dietary-restriction">
-        <label for="vegan">Vegan</label>
-        <input type="checkbox" id="dairy-free" name="dietary-restriction">
-        <label for="dairy-free">Dairy-Free</label>
-        <input type="checkbox" id="nut-free" name="dietary-restriction">
-        <label for="nut-free">Nut-Free</label>
-        <input type="checkbox" id="soy-free" name="dietary-restriction">
-        <label for="soy-free">Soy-Free</label>
-        <input type="checkbox" id="egg-free" name="dietary-restriction">
-        <label for="egg-free">Egg-Free</label>
-        <input type="checkbox" id="fish-free" name="dietary-restriction">
-        <label for="fish-free">Fish-Free</label>
+
       </form>
     </div>
 </div>

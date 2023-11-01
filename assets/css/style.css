@@ -39,6 +39,10 @@ a:hover {
     box-shadow: 5px 10px 10px lightgray;
 }
 
+#intolerances {
+    background-color: #278366;
+}
+
 .meal-box {
     display: flex;
     flex-direction: row;
