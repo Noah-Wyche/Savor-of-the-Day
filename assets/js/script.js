@@ -20,6 +20,7 @@ var mealsEl = $('#todaysMeals');
 
 function fetchRecipes (event) {
     event.preventDefault();
+    mealsEl.empty();
 
     var results = 100;
     var ingr = ingredientEl.val();
