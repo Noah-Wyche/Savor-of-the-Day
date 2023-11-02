@@ -12,6 +12,7 @@ const recipeKey = 'ae51fef401e2e4f76673a641e62528d0';
 
 //spoonacular key
 const spoonKey = '3a9936fadce343adb4de42101c9338d6';
+
 const spoonJkey = '6e7f94a950624d98afbabe809e668a25';
 
 var featuredEl = $("#featured");
@@ -48,14 +49,25 @@ fetchAndDisplayFeatured();
 
 
 
+
 var form = $('#userForm');
 var ingredientEl = $('#ingredient');
+var mealsEl = $('#todaysMeals');
+
+//modal elements
+var modalTitle = $('#recipeModalLabel');
+var modalBody = $('#recipeModalBody');
+
 
 function fetchRecipes (event) {
     event.preventDefault();
+    mealsEl.empty();
 
+    var results = 100;
     var ingr = ingredientEl.val();
+
     var queryURL = 'https://api.spoonacular.com/recipes/findByIngredients?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
+
     
     //uncomment the fetch when you need to test
     
@@ -65,13 +77,107 @@ function fetchRecipes (event) {
         })
         .then(function(data) {
             console.log(data);
+
+            for (var i=0;i<3;i++) {
+                var rand = Math.floor(Math.random() * results+1);
+                var recipeID = data.results[rand].id;
+                var recipeName = data.results[rand].title;
+
+                var mealDiv = $('<div>');
+                var titleDiv = $('<div>');
+                var imgDiv = $('<div>');
+                var optionsDiv = $('<div>');
+
+                var mealImg = $('<img>');
+                var mealTitle = $('<h3>');
+                var recipeBtn = $('<button>');
+                var saveBtn = $('<button>');
+
+                mealDiv.addClass("grid-x grid-margin-x grid-margin-y");
+
+                mealImg.attr("src",data.results[rand].image);
+                mealImg.attr("style", "width:150px;height:auto;border-radius:10px;");
+                imgDiv.addClass("cell medium-3");
+                mealTitle.text(recipeName);
+                mealTitle.attr("style", "margin-top: 1em;");
+                titleDiv.addClass("cell medium-6");
+                optionsDiv.addClass("cell medium-3");
+                recipeBtn.addClass("button");
+                recipeBtn.attr("type","button");
+                recipeBtn.attr("style", "margin:2px;");
+                recipeBtn.attr("data-toggle", "modal");
+                recipeBtn.attr("data-target", "#recipeModal");
+                recipeBtn.text("Recipe");
+                saveBtn.addClass("button");
+                saveBtn.attr("type","button");
+                saveBtn.attr("style", "margin:2px;");
+                saveBtn.text("Save");
+
+                imgDiv.append(mealImg);
+                titleDiv.append(mealTitle);
+                optionsDiv.append(recipeBtn);
+                optionsDiv.append(saveBtn);
+
+                mealDiv.append(imgDiv);
+                mealDiv.append(titleDiv);
+                mealDiv.append(optionsDiv);
+
+                mealsEl.append(mealDiv);
+
+                recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
+            }
         });
     
 }
 
+function getRecipeDetails (recipeID, recipeName) {
+    console.log(">>> RecipeID: " + recipeID);
+    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonKey2;
+    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonKey2;
+
+    modalTitle.empty();
+    modalBody.empty();
+
+    modalTitle.append(recipeName);
+    var steps = $('<ul>');
+    var ingredients = $('<ul>');
+
+    fetch(ingrQueryURL)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+
+            var ingrLength = data.ingredients.length;
+            for (var i=0;i<ingrLength;i++) {
+                var ingr = $('<li>');
+                ingr.text(data.ingredients[i].name + "  " + data.ingredients[i].amount.us.value + " " + data.ingredients[i].amount.us.unit);
+                ingredients.append(ingr);
+            }
+            modalBody.append(ingredients);
+        });
+
+    fetch (stepsQueryURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+
+            var stepsLength = data[0].steps.length;
+            for (var i=0;i<stepsLength;i++) {
+                var step = $('<li>');
+                step.text(data[0].steps[i].step);
+                steps.append(step);
+            }
+            modalBody.append(steps);
+        });
+}
+
 form.on('submit', fetchRecipes);
 
-// We are gonna need a lot of stuff in here
+
 
 // Image box
 // Function to choose a random recipe image and name when the page loads or is refreshes

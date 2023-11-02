@@ -13,7 +13,7 @@
         <ul class="vertical medium-horizontal menu align-right">
             <li><a href="./index.html">Homepage</a></li>
             <li><a href="./assets/pages/previous-recipes/previous.html">Previous Recipes</a></li>
-            <li><a href="./assets/pages/popular-recipes/popular.html">Popular Recipes</a></li>
+            <li><a href="./assets/pages/meal-planning/planning.html">Meal Planning</a></li>
             <li><a href="./assets/pages/browse/browse.html">Browse</a></li>
         </ul>
     </nav> 
@@ -29,13 +29,13 @@
       <!-- Slides -->
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="assets/images/group cooking.png" alt="Image 1">
+          <img src="assets/images/Savoring the Day, One Recipe at a Time (2).png" alt="Image 1">
         </div>
         <div class="carousel-item">
-          <img src="assets/images/cooking hands.png" alt="Image 2">
+          <img src="assets/images/Savoring the Day, One Recipe at a Time (1).png" alt="Image 2">
         </div>
         <div class="carousel-item">
-          <img src="assets/images/food.png" alt="Image 3">
+          <img src="assets/images/Savoring the Day, One Recipe at a Time.png" alt="Image 3">
         </div>
       </div>
     
@@ -55,79 +55,94 @@
 
 
     <div class="main">
+      
       <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
+
         <div id="featured" class="box cell medium-4">
           <h2>Box 1</h2>
           <p>This is the content of Box 1.</p>
+
         </div>
       
 
         <div class="box cell medium-8">
-          <h2>Modify Your Meals</h2>
-          <p>I Want to be Shown:</p>
-            <form id="userForm">
-              <label>
-                <input type="checkbox" name="meal" value="breakfast" checked> Breakfast
-              </label>
-              <label>
-                <input type="checkbox" name="meal" value="lunch" checked> Lunch
-              </label>
-              <label>
-                <input type="checkbox" name="meal" value="dinner" checked> Dinner
-              </label>
-              <p>Enter a Specific Ingredient:</p>
-              <input type="text" id="ingredient" placeholder="E.g., Chicken, Pasta, etc.">
-              <input type="submit" id="search-button" value="Search"></button>
-         
+          <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
+            <div class="cell medium-8">
+              <h2>Modify Your Meals</h2>
+              <p>I Want to be Shown:</p>
+              <form id="userForm">
+                <input type="radio" id="breakfast" name="meal" value="breakfast">
+                <label for="breakfast">Breakfast</label><br>
+                <input type="radio" id="lunch" name="meal" value="lunch">
+                <label for="lunch">Lunch</label><br>
+                <input type="radio" id="dinner" name="meal" value="dinner">
+                <label for="dinner">Dinner</label>
+                <p>Enter ingredients separated by commas:</p>
+                <input type="text" id="ingredient" placeholder="E.g. Chicken,Pasta,etc">
+                <input type="submit" id="search-button" value="Search"></button>
+              </div>
+
+              <div id="intolerances" class="cell medium-4">
+                <h3>Intolerances:</h3>
+                
+                <input type="checkbox" id="gluten" name="intolerances">
+                <label for="gluten">Gluten</label>
+                <input type="checkbox" id="grain" name="intolerances">
+                <label for="grain">Grain</label>
+                <input type="checkbox" id="dairy" name="intolerances">
+                <label for="dairy">Dairy</label>
+                <input type="checkbox" id="peanut" name="intolerances">
+                <label for="peanut">Peanut</label>
+                <input type="checkbox" id="soy" name="intolerances">
+                <label for="soy">Soy</label>
+                <input type="checkbox" id="egg" name="intolerances">
+                <label for="egg">Egg</label>
+                <input type="checkbox" id="seafood" name="intolerances">
+                <label for="seafood">Seafood</label>
+              </div>
+          </div>
         </div>
       </div>
 
       <div>
-        <h3>Dietary Restrictions:</h3>
-       
-        <input type="checkbox" id="gluten-free" name="dietary-restriction">
-        <label for="gluten-free">Gluten-Free</label>
-        <input type="checkbox" id="vegan" name="dietary-restriction">
-        <label for="vegan">Vegan</label>
-        <input type="checkbox" id="dairy-free" name="dietary-restriction">
-        <label for="dairy-free">Dairy-Free</label>
-        <input type="checkbox" id="nut-free" name="dietary-restriction">
-        <label for="nut-free">Nut-Free</label>
-        <input type="checkbox" id="soy-free" name="dietary-restriction">
-        <label for="soy-free">Soy-Free</label>
-        <input type="checkbox" id="egg-free" name="dietary-restriction">
-        <label for="egg-free">Egg-Free</label>
-        <input type="checkbox" id="fish-free" name="dietary-restriction">
-        <label for="fish-free">Fish-Free</label>
+
       </form>
     </div>
-</div>
+
       
 
-      <div class="large-box">
+      <div class="box">
         <h2>Today's Meals</h2>
-
-          <div class="meal-box">
-            <img class="meal-photo" src="assets/images/Breakfast.jpeg" alt="Image of pancakes with eggs and bacon">
-            <p class="meal-description">Here is some sample text for now to get the spacing right but eventually this should pull in some kind of recipe description.</p>
-            <div id="breakfastCookTime">"30min"</div>
+          <div id="todaysMeals">
+            
           </div>
 
-          <div class="meal-box">
-            <img class="meal-photo" src="assets/images/Lunch.webp" alt="Image of a ceaser salad ">
-            <p class="meal-description">Here is some sample text for now to get the spacing right but eventually this should pull in some kind of recipe description.</p>
-            <div id="lunchCookTime">"20min"</div>
-          </div>
+      </div>
 
-          <div class="meal-box">
-            <img class="meal-photo" src="assets/images/Dinner.jpeg" alt="Image of a baked chicken dish with veggies">
-            <p class="meal-description">Here is some sample text for now to get the spacing right but eventually this should pull in some kind of recipe description.</p>
-            <div id="dinnerCookTime">"50min"</div>
+      <!-- Modal -->
+      <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="recipeModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="recipeModalBody" class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
           </div>
-
         </div>
       </div>
+
+    <!--End main div-->
     </div>
+
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js" crossorigin="anonymous"></script>
