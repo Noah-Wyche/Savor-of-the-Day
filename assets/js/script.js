@@ -15,12 +15,15 @@ const spoonKey = '3a9936fadce343adb4de42101c9338d6';
 
 var form = $('#userForm');
 var ingredientEl = $('#ingredient');
+var mealsEl = $('#todaysMeals');
+
 
 function fetchRecipes (event) {
     event.preventDefault();
 
+    var results = 100;
     var ingr = ingredientEl.val();
-    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonKey + '&number=100';
+    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonKey + '&number=' + results;
     
     //uncomment the fetch when you need to test
     
@@ -30,6 +33,49 @@ function fetchRecipes (event) {
         })
         .then(function(data) {
             console.log(data);
+
+            for (var i=0;i<3;i++) {
+                var rand = Math.floor(Math.random() * results+1);
+
+                var mealDiv = $('<div>');
+                var titleDiv = $('<div>');
+                var imgDiv = $('<div>');
+                var optionsDiv = $('<div>');
+
+                var mealImg = $('<img>');
+                var mealTitle = $('<h3>');
+                var recipeBtn = $('<button>');
+                var saveBtn = $('<button>');
+
+                mealDiv.addClass("grid-x grid-margin-x grid-margin-y");
+
+                mealImg.attr("src",data.results[rand].image);
+                mealImg.attr("style", "width:150px;height:auto;border-radius:10px;");
+                imgDiv.addClass("cell medium-3");
+                mealTitle.text(data.results[rand].title);
+                mealTitle.attr("style", "margin-top: 1em;");
+                titleDiv.addClass("cell medium-6");
+                optionsDiv.addClass("cell medium-3");
+                recipeBtn.addClass("button");
+                recipeBtn.attr("type","button");
+                recipeBtn.attr("style", "margin:2px;");
+                recipeBtn.text("Recipe");
+                saveBtn.addClass("button");
+                saveBtn.attr("type","button");
+                saveBtn.attr("style", "margin:2px;");
+                saveBtn.text("Save");
+
+                imgDiv.append(mealImg);
+                titleDiv.append(mealTitle);
+                optionsDiv.append(recipeBtn);
+                optionsDiv.append(saveBtn);
+
+                mealDiv.append(imgDiv);
+                mealDiv.append(titleDiv);
+                mealDiv.append(optionsDiv);
+
+                mealsEl.append(mealDiv);
+            }
         });
     
 }
