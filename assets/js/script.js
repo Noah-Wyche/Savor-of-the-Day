@@ -66,7 +66,7 @@ function fetchRecipes (event) {
     var results = 100;
     var ingr = ingredientEl.val();
 
-    var queryURL = 'https://api.spoonacular.com/recipes/findByIngredients?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
+    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
 
     
     //uncomment the fetch when you need to test
@@ -75,8 +75,9 @@ function fetchRecipes (event) {
         .then(function (response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function (data) {
             console.log(data);
+        
 
             for (var i=0;i<3;i++) {
                 var rand = Math.floor(Math.random() * results+1);
@@ -132,8 +133,8 @@ function fetchRecipes (event) {
 
 function getRecipeDetails (recipeID, recipeName) {
     console.log(">>> RecipeID: " + recipeID);
-    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonKey2;
-    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonKey2;
+    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonJkey;
+    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonJkey;
 
     modalTitle.empty();
     modalBody.empty();
