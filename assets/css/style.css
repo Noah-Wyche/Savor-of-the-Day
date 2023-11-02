@@ -67,6 +67,10 @@ a:hover {
     border-radius: 10px;
 }
 
+#todaysMeals {
+    padding: 10px;
+}
+
 #breakfastCookTime, #lunchCookTime, #dinnerCookTime {
     color: #43ee82;
 }
