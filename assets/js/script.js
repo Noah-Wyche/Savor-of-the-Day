@@ -139,7 +139,7 @@ function getRecipeDetails (recipeID, recipeName) {
 
 form.on('submit', fetchRecipes);
 
-// We are gonna need a lot of stuff in here
+
 
 // Image box
 // Function to choose a random recipe image and name when the page loads or is refreshes
