@@ -29,7 +29,6 @@ fetch(endpoint + '?apiKey=' + apiKey)
     console.error('Error:', error);
   });
 
-
 // Check if the 'visitedRecipes' data exists in localStorage
 const visitedRecipes = JSON.parse(localStorage.getItem('visitedRecipes')) || [];
 

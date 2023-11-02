@@ -87,9 +87,29 @@ function fetchRecipes (event) {
                 mealsEl.append(mealDiv);
 
                 recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
+                saveBtn.on('click', function () {saveRecipeID(recipeID)});
             }
         });
     
+}
+
+var favorites = [];
+
+loadRecipeIDs();
+function loadRecipeIDs () {
+    favorites = localStorage.getItem("favorites");
+    console.log(favorites);
+}
+
+function saveRecipeID (recipeID) {
+
+    if (!favorites.includes(recipeID)) {
+        favorites.push(recipeID);
+    }
+
+    console.log(favorites);
+
+    localStorage.setItem("favorites", favorites);
 }
 
 function getRecipeDetails (recipeID, recipeName) {
