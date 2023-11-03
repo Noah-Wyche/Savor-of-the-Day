@@ -29,8 +29,8 @@ async function displayVisitedRecipes() {
   container.innerHTML = ''; // Clear the container
 
   // Get the visited recipes from Local Storage
-  const storedRecipes = JSON.parse(localStorage.getItem('visitedRecipes')) || [];
-
+  const storedRecipes = localStorage.getItem('favorites') || [];
+  console.log(storedRecipes);
   // Loop through the stored recipes and create HTML elements to display them
   for (const recipe of storedRecipes) {
     const card = document.createElement('div');
@@ -53,7 +53,7 @@ async function displayVisitedRecipes() {
 }
 
 // Example of storing a visited recipe
-storeVisitedRecipe(716429); 
+//storeVisitedRecipe(716429); 
 
 // Example of displaying visited recipes
 displayVisitedRecipes();
