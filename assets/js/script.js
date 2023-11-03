@@ -31,8 +31,6 @@ function fetchRecipes (event) {
     var ingr = ingredientEl.val();
     var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonKey2 + '&number=' + results;
     
-    //uncomment the fetch when you need to test
-    
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -95,19 +93,20 @@ function fetchRecipes (event) {
 
 var favorites = [];
 
-loadRecipeIDs();
-function loadRecipeIDs () {
-    favorites = localStorage.getItem("favorites");
-    console.log(favorites);
+loadRecipeID();
+function loadRecipeID () {
+    favoritesString = localStorage.getItem("favorites");
+    favorites = favoritesString.split(',');
 }
 
 function saveRecipeID (recipeID) {
 
-    if (!favorites.includes(recipeID)) {
-        favorites.push(recipeID);
-    }
+    var favorite = recipeID;
 
-    console.log(favorites);
+    if (!favorites.includes(recipeID)) {
+        favorites.push(favorite);
+    }
+    
 
     localStorage.setItem("favorites", favorites);
 }
