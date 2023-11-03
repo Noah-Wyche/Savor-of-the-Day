@@ -69,8 +69,6 @@ function fetchRecipes (event) {
     var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
 
     
-    //uncomment the fetch when you need to test
-    
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -126,9 +124,30 @@ function fetchRecipes (event) {
                 mealsEl.append(mealDiv);
 
                 recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
+                saveBtn.on('click', function () {saveRecipeID(recipeID)});
             }
         });
     
+}
+
+var favorites = [];
+
+loadRecipeID();
+function loadRecipeID () {
+    favoritesString = localStorage.getItem("favorites");
+    favorites = favoritesString.split(',');
+}
+
+function saveRecipeID (recipeID) {
+
+    var favorite = recipeID;
+
+    if (!favorites.includes(recipeID)) {
+        favorites.push(favorite);
+    }
+    
+
+    localStorage.setItem("favorites", favorites);
 }
 
 function getRecipeDetails (recipeID, recipeName) {

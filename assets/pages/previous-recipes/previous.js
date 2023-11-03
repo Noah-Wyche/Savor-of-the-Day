@@ -1,3 +1,4 @@
+
 // Check if local storage contains previous recipe views
 var previousViews = localStorage.getItem('recipeViews');
 if (previousViews) {
@@ -31,6 +32,7 @@ function displayRecipe(recipeId) {
       console.error('Error fetching recipe details:', error);
     });
 }
+
 
 // Display previously viewed recipes
 if (previousViews.length > 0) {
