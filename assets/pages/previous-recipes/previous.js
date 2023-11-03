@@ -1,7 +1,7 @@
 // Function to fetch a recipe from the Spoonacular API
 async function fetchRecipes(recipeId) {
   const apiKey = '2cb22fa15c84434b9cf613d3cd6c02ac';
-  const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=$2cb22fa15c84434b9cf613d3cd6c02ac`);
+  const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=2cb22fa15c84434b9cf613d3cd6c02ac`);
   const data = await response.json();
   return data;
 }
@@ -29,14 +29,19 @@ async function displayVisitedRecipes() {
   container.innerHTML = ''; // Clear the container
 
   // Get the visited recipes from Local Storage
+  var storedRecipesArr;
   const storedRecipes = localStorage.getItem('favorites') || [];
-  console.log(storedRecipes);
+  if (storedRecipes) {
+    storedRecipesArr = storedRecipes.split(',');
+  }
+
   // Loop through the stored recipes and create HTML elements to display them
-  for (const recipe of storedRecipes) {
+
+  for (var i=0;i<storedRecipesArr.length;i++) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    const recipeData = await fetchRecipes(recipe.id);
+    const recipeData = await fetchRecipes(storedRecipesArr[i]);
 
     if (recipeData) {
       card.innerHTML = `
