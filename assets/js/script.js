@@ -132,7 +132,7 @@ function fetchRecipes (event) {
 
 var favorites = [];
 
-loadRecipeID();
+//loadRecipeID();
 function loadRecipeID () {
     favoritesString = localStorage.getItem("favorites");
     favorites = favoritesString.split(',');
