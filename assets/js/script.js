@@ -135,7 +135,10 @@ var favorites = [];
 //loadRecipeID();
 function loadRecipeID () {
     favoritesString = localStorage.getItem("favorites");
-    favorites = favoritesString.split(',');
+    if (favoritesString) {
+        favorites = favoritesString.split(',');
+    }
+    
 }
 
 function saveRecipeID (recipeID) {
