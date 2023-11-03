@@ -12,7 +12,43 @@ const recipeKey = 'ae51fef401e2e4f76673a641e62528d0';
 
 //spoonacular key
 const spoonKey = '3a9936fadce343adb4de42101c9338d6';
-const spoonKey2 = '7bffc6fd4c2949929463a1380911dcd3';
+
+const spoonJkey = '6e7f94a950624d98afbabe809e668a25';
+
+var featuredEl = $("#featured");
+
+//fetching data from api 
+function fetchAndDisplayFeatured() {
+    var queryURL = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + spoonJkey;
+    fetch(queryURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+
+            var recipeTitle = data.recipes[0].title;
+            var imgSrc = data.recipes[0].image;
+            var recipeElement = $("#featured");
+            recipeElement.html(`
+                <h2>${recipeTitle}</h2>
+                <img src="${imgSrc}"><img>
+
+            `);
+            featuredEl.append(recipeElement);
+        })
+        .catch(function(error) {
+            console.error("Error fetching and displaying featured recipe:", error);
+        });
+}
+
+// Call the function to fetch and display the featured recipe
+fetchAndDisplayFeatured();
+
+
+
+
+
 
 var form = $('#userForm');
 var ingredientEl = $('#ingredient');
@@ -29,14 +65,17 @@ function fetchRecipes (event) {
 
     var results = 100;
     var ingr = ingredientEl.val();
-    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonKey2 + '&number=' + results;
+
+    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
+
     
     fetch(queryURL)
         .then(function (response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function (data) {
             console.log(data);
+        
 
             for (var i=0;i<3;i++) {
                 var rand = Math.floor(Math.random() * results+1);
@@ -113,8 +152,8 @@ function saveRecipeID (recipeID) {
 
 function getRecipeDetails (recipeID, recipeName) {
     console.log(">>> RecipeID: " + recipeID);
-    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonKey2;
-    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonKey2;
+    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonJkey;
+    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonJkey;
 
     modalTitle.empty();
     modalBody.empty();
@@ -158,7 +197,7 @@ function getRecipeDetails (recipeID, recipeName) {
 
 form.on('submit', fetchRecipes);
 
-// We are gonna need a lot of stuff in here
+
 
 // Image box
 // Function to choose a random recipe image and name when the page loads or is refreshes
