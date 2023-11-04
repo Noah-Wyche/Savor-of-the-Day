@@ -1,3 +1,13 @@
+// Setting Monday, Tuesday, and Wednesday to be open by default
+const button = document.querySelector('.collapsible-button');
+const startOpenElements = document.querySelectorAll('.day-box.start-open');
+
+startOpenElements.forEach(element => {
+  element.style.display = 'block';
+});
+
+
+
 // Define variables for user and grocery store coordinates
 let userCoords = null;
 let groceryStoreCoords = null;
@@ -75,4 +85,19 @@ function displayRoute() {
             console.error('Error:', error);
         });
   }
+}
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
 }
