@@ -1,75 +1,78 @@
-const planningID = '2310a4b1';
-const planningKey = 'f3d8324e6c28c96307fc09f4cfc04894';
-const apiUrl = 'https://api.edamam.com/api/meal-planner/v1';
+// Define variables for user and grocery store coordinates
+let userCoords = null;
+let groceryStoreCoords = null;
 
-// Define the parameters for the two-week meal plan
-const start = '2023-11-01'; // Replace with the start date of your two-week plan
-const end = '2023-11-14';   // Replace with the end date of your two-week plan
+// Define the starting and ending coordinates (replace with actual coordinates)
+let startCoords = null;
+let endCoords = null;
 
-const requestBody = {
-  size: 2,
-  plan: {
-    accept: {
-      all: [
-        {
-          health: ['VEGAN'],
-        },
-        {
-          cuisine: ['Mediterranean'],
-        },
-      ],
-    },
-    fit: {
-      ENERC_KCAL: {
-        min: 1800,
-        max: 2200,
-      },
-      PROCNT: {
-        min: 50,
-        max: 300,
-      },
-    },
-    sections: {
-      Breakfast: {},
-      Lunch: {
-        exclude: [
-          'http://www.edamam.com/ontologies/edamam.owl#recipe_x',
-          'http://www.edamam.com/ontologies/edamam.owl#recipe_y',
-          'http://www.edamam.com/ontologies/edamam.owl#recipe_z',
-        ],
-        sections: {
-          Starter: {},
-          Main: {},
-          Dessert: {},
-        },
-      },
-      Dinner: {
-        exclude: [
-          'http://www.edamam.com/ontologies/edamam.owl#recipe_a',
-          'http://www.edamam.com/ontologies/edamam.owl#recipe_b',
-          'http://www.edamam.com/ontologies/edamam.owl#recipe_c',
-        ],
-        sections: {
-          Main: {},
-          Dessert: {},
-        },
-      },
-    },
-  },
-};
-
-fetch(requestBody, {
-  method: 'POST', // Use POST to send the request body
-  headers: {
-    'Content-Type': 'application/json', // Set the content type to JSON
-  },
-  body: JSON.stringify(requestBody), // Convert the request body to a JSON string
-})
-  .then(response => response.json())
-  .then(data => {
-    // Process and use the meal plan data
-    console.log(data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
+if ('geolocation' in navigator) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    userCoords = [position.coords.longitude, position.coords.latitude];
+    
+    // Call a function to find the nearby grocery store using the user's coordinates
+    findNearbyGroceryStore(userCoords);
   });
+} else {
+  // Geolocation is not available in this browser
+  console.error('Geolocation is not available.');
+}
+
+function findNearbyGroceryStore(userCoords) {
+  const apiKey = 'AIzaSyBafC_HrE87F8TRClLlj8y5pNvfdUXBfM0';
+  const radius = 1000; // Define a radius (in meters) for the search
+
+  fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userCoords[1]},${userCoords[0]}&radius=${radius}&types=grocery_or_supermarket&key=${apiKey}`)
+      .then(response => response.json())
+      .then(data => {
+          if (data.results.length > 0) {
+              groceryStoreCoords = [data.results[0].geometry.location.lng, data.results[0].geometry.location.lat];
+              // Now, you can use groceryStoreCoords to display the route
+              startCoords = userCoords; // Assign user coordinates to startCoords
+              endCoords = groceryStoreCoords; // Assign grocery store coordinates to endCoords
+              displayRoute();
+          } else {
+              console.error('No nearby grocery stores found.');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+}
+
+function displayRoute() {
+  if (startCoords && endCoords) {
+    // Make an API request to Jawg's routing API
+    fetch(`https://api.jawg.io/routing/route/v1/driving/${startCoords[0]},${startCoords[1]};${endCoords[0]},${endCoords[1]}?access-token=${accessToken}`)
+        .then(response => response.json())
+        .then(data => {
+            // Extract the route data from the response
+            const routeData = data.routes[0].geometry;
+
+            // Add the route to the map
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: {
+                    type: 'geojson',
+                    data: {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: routeData,
+                    },
+                },
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round',
+                },
+                paint: {
+                    'line-color': '#3887be',
+                    'line-width': 5,
+                },
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+  }
+}
