@@ -22,7 +22,7 @@ var modalBody = $("#recipeModalBody");
 
 //fetching data from api 
 function fetchAndDisplayFeatured() {
-    var queryURL = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + spoonJkey;
+    var queryURL = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + spoonKey;
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -91,7 +91,7 @@ function fetchRecipes (event) {
     var results = 100;
     var ingr = ingredientEl.val();
 
-    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
+    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonKey + '&number=100';
 
     
     fetch(queryURL)
@@ -148,8 +148,15 @@ function fetchRecipes (event) {
 
                 mealsEl.append(mealDiv);
 
-                recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
-                saveBtn.on('click', function () {saveRecipeID(recipeID)});
+                //recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
+                recipeBtn.get(0).recipeId = data.results[rand].id;
+                recipeBtn.get(0).recipeName = data.results[rand].title;
+                recipeBtn.get(0).addEventListener("click", function(e) {
+                    getRecipeDetails(e.target.recipeId, e.target.recipeName);
+                });
+
+                saveBtn.get(0).recipeId = data.results[rand].id;
+                saveBtn.on('click', function (e) {saveRecipeID(e.target.recipeId)});
             }
         });
     
@@ -174,14 +181,15 @@ function saveRecipeID (recipeID) {
         favorites.push(favorite);
     }
     
+    console.log(favorites);
 
     localStorage.setItem("favorites", favorites);
 }
 
 function getRecipeDetails (recipeID, recipeName) {
     console.log(">>> RecipeID: " + recipeID);
-    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonJkey;
-    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonJkey;
+    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonKey;
+    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonKey;
 
     modalTitle.empty();
     modalBody.empty();
