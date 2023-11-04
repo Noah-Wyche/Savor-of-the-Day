@@ -1,0 +1,23 @@
+.meal-input {
+    margin: 10px;
+    padding: 2px;
+    height: 40px;
+    width: 600px;
+}
+
+#grocery-list {
+    height: 500px;
+    width: 400px;
+}
+
+#side-banner {
+    float: right;
+    margin-top: 40px;
+    margin-right: 80px;
+}
+
+#grocery-title {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+}
