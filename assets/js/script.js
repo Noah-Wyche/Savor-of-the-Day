@@ -16,6 +16,9 @@ const spoonKey = '3a9936fadce343adb4de42101c9338d6';
 const spoonJkey = '6e7f94a950624d98afbabe809e668a25';
 
 var featuredEl = $("#featured");
+var featuredButton = $("#featuredRecipe");
+var modalTitle = $("#recipeModalBody");
+var modalBody = $("#recipeModalBody");
 
 //fetching data from api 
 function fetchAndDisplayFeatured() {
@@ -24,30 +27,52 @@ function fetchAndDisplayFeatured() {
         .then(function (response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function (data) {
             console.log(data);
-
+            var recipeId = data.recipes[0].id;
             var recipeTitle = data.recipes[0].title;
             var imgSrc = data.recipes[0].image;
+            var ingrExtended = data.recipes[0].extendedIngredients;
+
             var recipeElement = $("#featured");
             recipeElement.html(`
                 <h2>${recipeTitle}</h2>
                 <img src="${imgSrc}"><img>
+                <button type="button" id="featuredRecipe">Recipe</button>
 
             `);
             featuredEl.append(recipeElement);
+
+            featuredButton = $("#featuredRecipe");
+            featuredButton.on("click", function () {
+                openRecipeModal(recipeId, recipeTitle, ingrExtended);
+            });
         })
-        .catch(function(error) {
-            console.error("Error fetching and displaying featured recipe:", error);
-        });
+}
+    
+function openRecipeModal(recipeID, recipeTitle, ingrExtended) {
+    console.log(">>> RecipeID: " + recipeID);
+    console.log(">>> Ingredients " + ingrExtended);
+//clearing content from/if previous recipe
+    modalTitle.empty();
+    modalBody.empty();
+//setting modal title to the recipe title
+    modalTitle.text(recipeTitle);
+
+    var ingredientsList = $('<ul>');
+//this loop goes into the array and pulls the ingredients info and creates an ul 
+    ingrExtended.forEach(function (ingredient) {
+        var ingredientItem = $('<li>');
+        ingredientItem.text(ingredient.name + " " + ingredient.amount + " " + ingredient.unit);
+        ingredientsList.append(ingredientItem);
+    })
+//apending to the modal 
+    modalBody.append(ingredientsList);
+
+    $('#recipeModal').modal('show');
 }
 
-// Call the function to fetch and display the featured recipe
 fetchAndDisplayFeatured();
-
-
-
-
 
 
 var form = $('#userForm');
@@ -66,7 +91,7 @@ function fetchRecipes (event) {
     var results = 100;
     var ingr = ingredientEl.val();
 
-    var queryURL = 'https://api.spoonacular.com/recipes/findByIngredients?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
+    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
 
     
     //uncomment the fetch when you need to test
@@ -132,8 +157,8 @@ function fetchRecipes (event) {
 
 function getRecipeDetails (recipeID, recipeName) {
     console.log(">>> RecipeID: " + recipeID);
-    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonKey2;
-    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonKey2;
+    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonJkey;
+    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonJkey;
 
     modalTitle.empty();
     modalBody.empty();
