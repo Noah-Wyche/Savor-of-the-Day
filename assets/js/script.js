@@ -16,38 +16,63 @@ const spoonKey = '3a9936fadce343adb4de42101c9338d6';
 const spoonJkey = '6e7f94a950624d98afbabe809e668a25';
 
 var featuredEl = $("#featured");
+var featuredButton = $("#featuredRecipe");
+var modalTitle = $("#recipeModalBody");
+var modalBody = $("#recipeModalBody");
 
 //fetching data from api 
 function fetchAndDisplayFeatured() {
-    var queryURL = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + spoonJkey;
+    var queryURL = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + spoonKey;
     fetch(queryURL)
         .then(function (response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function (data) {
             console.log(data);
-
+            var recipeId = data.recipes[0].id;
             var recipeTitle = data.recipes[0].title;
             var imgSrc = data.recipes[0].image;
+            var ingrExtended = data.recipes[0].extendedIngredients;
+
             var recipeElement = $("#featured");
             recipeElement.html(`
                 <h2>${recipeTitle}</h2>
                 <img src="${imgSrc}"><img>
+                <button type="button" id="featuredRecipe">Recipe</button>
 
             `);
             featuredEl.append(recipeElement);
+
+            featuredButton = $("#featuredRecipe");
+            featuredButton.on("click", function () {
+                openRecipeModal(recipeId, recipeTitle, ingrExtended);
+            });
         })
-        .catch(function(error) {
-            console.error("Error fetching and displaying featured recipe:", error);
-        });
+}
+    
+function openRecipeModal(recipeID, recipeTitle, ingrExtended) {
+    console.log(">>> RecipeID: " + recipeID);
+    console.log(">>> Ingredients " + ingrExtended);
+//clearing content from/if previous recipe
+    modalTitle.empty();
+    modalBody.empty();
+//setting modal title to the recipe title
+    modalTitle.text(recipeTitle);
+
+    var ingredientsList = $('<ul>');
+//this loop goes into the array and pulls the ingredients info and creates an ul 
+    ingrExtended.forEach(function (ingredient) {
+        var ingredientItem = $('<li>');
+        ingredientItem.text(ingredient.name + " " + ingredient.amount + " " + ingredient.unit);
+        ingredientsList.append(ingredientItem);
+    })
+//apending to the modal 
+    modalBody.append(ingredientsList);
+
+    $('#recipeModal').modal('show');
 }
 
-// Call the function to fetch and display the featured recipe
 fetchAndDisplayFeatured();
-
-
-
-
 
 
 var form = $('#userForm');
@@ -66,7 +91,7 @@ function fetchRecipes (event) {
     var results = 100;
     var ingr = ingredientEl.val();
 
-    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonJkey + '&number=100';
+    var queryURL = 'https://api.spoonacular.com/recipes/complexSearch?query=' + ingr + '&apiKey=' + spoonKey + '&number=100';
 
     
     fetch(queryURL)
@@ -123,8 +148,15 @@ function fetchRecipes (event) {
 
                 mealsEl.append(mealDiv);
 
-                recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
-                saveBtn.on('click', function () {saveRecipeID(recipeID)});
+                //recipeBtn.on('click', function() {getRecipeDetails(recipeID, recipeName)});
+                recipeBtn.get(0).recipeId = data.results[rand].id;
+                recipeBtn.get(0).recipeName = data.results[rand].title;
+                recipeBtn.get(0).addEventListener("click", function(e) {
+                    getRecipeDetails(e.target.recipeId, e.target.recipeName);
+                });
+
+                saveBtn.get(0).recipeId = data.results[rand].id;
+                saveBtn.on('click', function (e) {saveRecipeID(e.target.recipeId)});
             }
         });
     
@@ -135,7 +167,10 @@ var favorites = [];
 //loadRecipeID();
 function loadRecipeID () {
     favoritesString = localStorage.getItem("favorites");
-    favorites = favoritesString.split(',');
+    if (favoritesString) {
+        favorites = favoritesString.split(',');
+    }
+    
 }
 
 function saveRecipeID (recipeID) {
@@ -146,14 +181,15 @@ function saveRecipeID (recipeID) {
         favorites.push(favorite);
     }
     
+    console.log(favorites);
 
     localStorage.setItem("favorites", favorites);
 }
 
 function getRecipeDetails (recipeID, recipeName) {
     console.log(">>> RecipeID: " + recipeID);
-    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonJkey;
-    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonJkey;
+    stepsQueryURL = 'https://api.spoonacular.com/recipes/'+ recipeID +'/analyzedInstructions?apiKey=' + spoonKey;
+    ingrQueryURL = 'https://api.spoonacular.com/recipes/' + recipeID + '/ingredientWidget.json?apiKey=' + spoonKey;
 
     modalTitle.empty();
     modalBody.empty();

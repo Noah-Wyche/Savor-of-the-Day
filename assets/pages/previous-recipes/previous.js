@@ -29,14 +29,23 @@ async function displayVisitedRecipes() {
   container.innerHTML = ''; // Clear the container
 
   // Get the visited recipes from Local Storage
+<<<<<<< HEAD
   const storedRecipes = localStorage.getItem('favorites') || [];
+=======
+  var storedRecipesArr;
+  const storedRecipes = localStorage.getItem('favorites') || [];
+  if (storedRecipes) {
+    storedRecipesArr = storedRecipes.split(',');
+  }
+>>>>>>> ccfd78d6b96af10a5473f34302c5e14949b69832
 
   // Loop through the stored recipes and create HTML elements to display them
-  for (const recipe of storedRecipes) {
+
+  for (var i=0;i<storedRecipesArr.length;i++) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    const recipeData = await fetchRecipes(recipe.id);
+    const recipeData = await fetchRecipes(storedRecipesArr[i]);
 
     if (recipeData) {
       card.innerHTML = `
@@ -53,7 +62,10 @@ async function displayVisitedRecipes() {
 }
 
 // Example of storing a visited recipe
+<<<<<<< HEAD
 storeVisitedRecipes(); 
+=======
+
 
 // Example of displaying visited recipes
 displayVisitedRecipes();

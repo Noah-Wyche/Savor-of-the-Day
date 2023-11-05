@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="./planning.css"
+    <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet'/>
+    <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
     <title>Savor of the Day</title>
 </head>
 
@@ -27,7 +30,158 @@
 </div>
 <p>Want to get ahead of the curve and plan out your meals in advance? Well youve come to the rignt place. Below you can plan out Meals for the next two weeks</p>
 
-<div id="meal-plan"></div>
+<div id="side-banner">
+    <div> 
+        <p id="grocery-title">Grocery List</p>
+        <textarea id="grocery-list" rows="30" col="40"></textarea>
+    </div>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+        const accessToken = "Vhv97YvAXloZbWrxSv8Wq2C1Cpjdg1JWSNPhnbQwCK6j8HDHOC5WdsQhgNV9g7in";
+        var map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://demotiles.maplibre.org/style.json?access-token=' + accessToken,
+            center: [-74.5, 40], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
+    </script>
+</div>
+
+<div id="meal-plan">
+    <div id="week-one">
+        <h2>Week One</h2>
+        <button type="button" class="collapsible">Monday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+        <button type="button" class="collapsible">Tuesday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+        <button type="button" class="collapsible">Wednesday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+        <button type="button" class="collapsible">Thursday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+        <button type="button" class="collapsible">Friday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+        <button type="button" class="collapsible">Saturday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+        <button type="button" class="collapsible">Sunday</button>
+        <div class="day-box">
+            <p>Breakfst:</p> 
+            <input class="meal-input" type="text">
+            <p>Lunch:</p> 
+            <input class="meal-input" type="text">
+            <p>Dinner:</p> 
+            <input class="meal-input" type="text">
+        </div>
+    </div>
+</div>
+<div id="week-two">
+    <h2>Week Two</h2>
+    <button type="button" class="collapsible">Monday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+    <button type="button" class="collapsible">Tuesday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+    <button type="button" class="collapsible">Wednesday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+    <button type="button" class="collapsible">Thursday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+    <button type="button" class="collapsible">Friday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+    <button type="button" class="collapsible">Saturday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+    <button type="button" class="collapsible">Sunday</button>
+    <div class="day-box">
+        <p>Breakfst:</p> 
+        <input class="meal-input" type="text">
+        <p>Lunch:</p> 
+        <input class="meal-input" type="text">
+        <p>Dinner:</p> 
+        <input class="meal-input" type="text">
+    </div>
+</div>
+
 
 <script src="./planning.js"></script>
 </body>
