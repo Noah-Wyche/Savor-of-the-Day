@@ -1,7 +1,7 @@
 // Function to fetch a recipe from the Spoonacular API
 async function fetchRecipes(recipeId) {
   const apiKey = '2cb22fa15c84434b9cf613d3cd6c02ac';
-  const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=$2cb22fa15c84434b9cf613d3cd6c02ac`);
+  const response = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=2cb22fa15c84434b9cf613d3cd6c02ac`);
   const data = await response.json();
   return data;
 }
@@ -13,13 +13,13 @@ async function storeVisitedRecipes(recipeId) {
     const recipeName = recipeData.title;
 
     // Check if there are any previously stored recipes
-    let storedRecipes = JSON.parse(localStorage.getItem('visitedRecipes')) || [];
+    let storedRecipes = localStorage.getItem('favorites') || [];
 
     // Add the current recipe to the array of visited recipes
     storedRecipes.push({ id: recipeId, name: recipeName });
 
     // Store the updated array back in Local Storage
-    localStorage.setItem('visitedRecipes', JSON.stringify(storedRecipes));
+    localStorage.setItem('favorites',(storedRecipes));
   }
 }
 
@@ -29,7 +29,7 @@ async function displayVisitedRecipes() {
   container.innerHTML = ''; // Clear the container
 
   // Get the visited recipes from Local Storage
-  const storedRecipes = JSON.parse(localStorage.getItem('visitedRecipes')) || [];
+  const storedRecipes = localStorage.getItem('favorites') || [];
 
   // Loop through the stored recipes and create HTML elements to display them
   for (const recipe of storedRecipes) {
@@ -53,7 +53,7 @@ async function displayVisitedRecipes() {
 }
 
 // Example of storing a visited recipe
-storeVisitedRecipe(716429); 
+storeVisitedRecipes(); 
 
 // Example of displaying visited recipes
 displayVisitedRecipes();
