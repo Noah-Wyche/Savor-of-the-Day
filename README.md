@@ -24,7 +24,7 @@ Noah Wyche: Github-Noah-Wyche<br>
 
 ## Contact
 
-Reach out to the team at any of our email addresses
+Reach out to the team at any of our email addresses<br>
 Amanda Aina:<br>
 Mike Levey:<br>
 Jose Silva:<br>
@@ -32,4 +32,4 @@ Noah Wyche: Noahwyche1@gmail.com<br>
 
 Thanks!
 
-![Screenshot of the webpage](./assets/images/Screen%20Shot%202023-11-06%20at%2012.11.00%20PM%20Small.jpeg)"screenshot of apllication"
+![Screenshot of the webpage](./assets/images/Screen%20Shot%202023-11-06%20at%2012.11.00%20PM%20Small.jpeg "screenshot of apllication")
