@@ -25,11 +25,15 @@ Noah Wyche: Github-Noah-Wyche<br>
 ## Contact
 
 Reach out to the team at any of our email addresses<br>
-Amanda Aina:<br>
-Mike Levey:<br>
+Amanda Aina: Amandaade92@yahoo.com<br>
+Mike Levey: Mlevey92@gmail.com<br>
 Jose Silva:<br>
 Noah Wyche: Noahwyche1@gmail.com<br>
 
 Thanks!
 
-![Screenshot of the webpage](./assets/images/Screen%20Shot%202023-11-06%20at%2012.11.00%20PM%20Small.jpeg "screenshot of apllication")
+![Screenshot of the homepage](./assets/images/Screen%20Shot%202023-11-06%20at%2012.11.00%20PM%20Small.jpeg "screenshot of homepage")
+
+![Screenshot of the Meal Planning page](./assets/images/Screen%20Shot%202023-11-06%20at%2012.38.38%20PM%20Small.jpeg "screenshot of meal planning page")
+
+![Screenshot of the previous meals page](./assets/images/Screen%20Shot%202023-11-06%20at%2012.41.31%20PM%20Small.jpeg "Screenshot of the previous meals page")
