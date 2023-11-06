@@ -1,3 +1,8 @@
+#planning-statement {
+    text-align: center;
+    margin: 20px;
+}
+
 .meal-input {
     margin: 10px;
     padding: 2px;
@@ -47,7 +52,7 @@
     width: 636px;
   }
 
-  #week-one #week-two {
+  #week-one, #week-two {
     display: flex;
     flex-direction: column;
   }
