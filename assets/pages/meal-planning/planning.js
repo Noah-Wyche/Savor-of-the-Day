@@ -20,3 +20,28 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
+
+// Function to save input values to local storage
+function saveToLocalStorage() {
+  const inputs = document.querySelectorAll('.meal-input');
+  inputs.forEach(input => {
+    localStorage.setItem(input.id, input.value);
+  });
+}
+
+// Function to load values from local storage and populate the input elements
+function loadFromLocalStorage() {
+  const inputs = document.querySelectorAll('.meal-input');
+  inputs.forEach(input => {
+    input.value = localStorage.getItem(input.id);
+  });
+}
+
+// Save input values to local storage when they change
+const inputs = document.querySelectorAll('.meal-input');
+inputs.forEach(input => {
+  input.addEventListener("input", saveToLocalStorage);
+});
+
+// Load values from local storage on page load
+window.addEventListener("load", loadFromLocalStorage);
