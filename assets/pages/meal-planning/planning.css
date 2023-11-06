@@ -47,8 +47,7 @@
     width: 636px;
   }
 
-  #week-one {
+  #week-one #week-two {
     display: flex;
     flex-direction: column;
-
   }
